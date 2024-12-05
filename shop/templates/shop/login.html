@@ -1,0 +1,16 @@
+{% extends 'shop/layouts/main.html' %}
+{% block title %}Login | Vorcas{% endblock title %}
+
+{% block content %}
+    <div class="col-lg-6 mx-auto">
+        <h3>Login</h3>
+        <form method="post">
+            {% csrf_token %}
+            <label>Username</label>
+            <input type="text" name="username" class="form-control" required>
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" required>
+            <button type="submit" class="btn btn-primary mt-3">Login</button>
+        </form>
+    </div>
+{% endblock content %}

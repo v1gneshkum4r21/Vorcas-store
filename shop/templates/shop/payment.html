@@ -1,0 +1,44 @@
+{% extends 'shop/layouts/main.html' %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h4>Complete Payment</h4>
+                    <p>Order Total: ₹{{ order.total_price }}</p>
+                    <button id="payNowBtn" class="btn btn-primary">Pay Now</button>
+                    <div id="payment-error" class="alert alert-danger mt-3" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+<script>
+    const cashfree = Cashfree({
+        mode: "production"
+    });
+
+    document.getElementById("payNowBtn").addEventListener("click", () => {
+        try {
+            const checkoutOptions = {
+                paymentSessionId: "{{ payment_session_id }}",
+                redirectTarget: "_self",
+                onError: (error) => {
+                    const errorDiv = document.getElementById("payment-error");
+                    errorDiv.textContent = error.message || "Payment failed. Please try again.";
+                    errorDiv.style.display = "block";
+                }
+            };
+            cashfree.checkout(checkoutOptions);
+        } catch (error) {
+            console.error("Payment initialization failed:", error);
+            const errorDiv = document.getElementById("payment-error");
+            errorDiv.textContent = "Unable to initialize payment. Please try again.";
+            errorDiv.style.display = "block";
+        }
+    });
+</script>
+{% endblock %} 

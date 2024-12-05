@@ -1,0 +1,65 @@
+{% if banners %}
+    <div class="banner-wrapper banner-{{ position }}-wrapper">
+        {% if use_slider %}
+            <div id="carousel{{ position|title }}" 
+                 class="carousel slide banner-{{ position }}" 
+                 data-bs-ride="carousel"
+                 data-position="{{ position }}">
+                <div class="carousel-indicators">
+                    {% for banner in banners %}
+                        <button type="button" data-bs-target="#carousel{{ position|title }}" 
+                                data-bs-slide-to="{{ forloop.counter0 }}" 
+                                {% if forloop.first %}class="active"{% endif %}
+                                aria-label="Slide {{ forloop.counter }}">
+                        </button>
+                    {% endfor %}
+                </div>
+                
+                <div class="carousel-inner">
+                    {% for banner in banners %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <a href="{{ banner.get_link }}" class="banner-link">
+                                <img src="{{ banner.image.url }}" class="d-block w-100" alt="{{ banner.title }}">
+                                {% if banner.title or banner.subtitle %}
+                                    <div class="banner-content">
+                                        <h3>{{ banner.title }}</h3>
+                                        {% if banner.subtitle %}
+                                            <p>{{ banner.subtitle }}</p>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ position|title }}" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ position|title }}" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        {% else %}
+            <div class="banner-container banner-{{ position }} {% if not banners %}loading{% endif %}">
+                {% for banner in banners %}
+                    <div class="banner-item">
+                        <a href="{{ banner.get_link }}">
+                            <img src="{{ banner.image.url }}" alt="{{ banner.title }}" class="img-fluid">
+                            {% if banner.title or banner.subtitle %}
+                                <div class="banner-content">
+                                    <h3>{{ banner.title }}</h3>
+                                    {% if banner.subtitle %}
+                                        <p>{{ banner.subtitle }}</p>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endif %} 

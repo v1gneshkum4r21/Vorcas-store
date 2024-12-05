@@ -1,0 +1,51 @@
+{% if banners %}
+<div id="carousel{{ position|title }}" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        {% for banner, link in banners %}
+            <button type="button" data-bs-target="#carousel{{ position|title }}" 
+                    data-bs-slide-to="{{ forloop.counter0 }}" 
+                    {% if forloop.first %}class="active" aria-current="true"{% endif %}
+                    aria-label="Slide {{ forloop.counter }}">
+            </button>
+        {% endfor %}
+    </div>
+    
+    <div class="carousel-inner">
+        {% for banner, link in banners %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="2000">
+                <a href="{{ link }}" class="carousel-link">
+                    <img src="{{ banner.image.url }}" class="d-block w-100" alt="{{ banner.title }}">
+                    {% if banner.title or banner.subtitle %}
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>{{ banner.title }}</h5>
+                            {% if banner.subtitle %}
+                                <p>{{ banner.subtitle }}</p>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ position|title }}" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ position|title }}" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+{% endif %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var carousel = document.getElementById('carousel{{ position|title }}');
+    var carouselInstance = new bootstrap.Carousel(carousel, {
+        interval: 2000,
+        wrap: true,
+        pause: false
+    });
+});
+</script>

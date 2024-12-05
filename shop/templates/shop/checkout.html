@@ -1,0 +1,70 @@
+{% extends 'shop/layouts/main.html' %}
+{% block title %}Checkout | Vorcas{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <h2>Checkout</h2>
+    <div class="row">
+        <div class="col-md-8">
+            {% if not addresses %}
+                <div class="alert alert-warning">
+                    Please add a delivery address first.
+                    <a href="{% url 'add_address' %}" class="btn btn-primary ms-3">Add Address</a>
+                </div>
+            {% else %}
+                <form method="POST" id="checkoutForm">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <h4>Select Delivery Address</h4>
+                        {% for address in addresses %}
+                            <div class="form-check mb-3">
+                                <input type="radio" name="address_id" value="{{ address.id }}" 
+                                       class="form-check-input" {% if address.is_default %}checked{% endif %} required>
+                                <label class="form-check-label">
+                                    <strong>{{ address.name }}</strong><br>
+                                    {{ address.address_line1 }}
+                                    {% if address.address_line2 %}, {{ address.address_line2 }}{% endif %}<br>
+                                    {{ address.city }}, {{ address.state }} - {{ address.pincode }}<br>
+                                    Phone: {{ address.phone }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h4>Payment Method</h4>
+                        <div class="form-group mb-3">
+                            <label>Payment Method</label>
+                            <select name="payment_method" class="form-control" required>
+                                <option value="cashfree">Pay Online</option>
+                                <option value="cod">Cash on Delivery</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Place Order</button>
+                </form>
+            {% endif %}
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Order Summary</h4>
+                </div>
+                <div class="card-body">
+                    {% for item in cart %}
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>{{ item.product.name }} × {{ item.product_qty }}</span>
+                        <span>Rs. {{ item.total_cost }}</span>
+                    </div>
+                    {% endfor %}
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <strong>Total Amount:</strong>
+                        <strong>Rs. {{ total_price }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

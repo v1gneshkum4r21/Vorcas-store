@@ -1,0 +1,105 @@
+{% extends 'shop/layouts/main.html' %}
+{% block title %}{{ products.name }} | Vorcas{% endblock title %}
+{% load banner_tags %}
+
+{% block content %}
+    {% display_banner 'product_sidebar' %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{{ products.product_image.url }}" class="img-fluid" alt="{{ products.name }}">
+                    </div>
+                    <div class="col-md-6">
+                        <h3>{{ products.name }}</h3>
+                        <p>{{ products.vendor }}</p>
+                        <p>{{ products.description }}</p>
+                        <p><s>Original Price: Rs. {{ products.original_price }}</s></p>
+                        <h4>Offer Price: Rs. {{ products.selling_price }}</h4>
+                        {% if products.quantity > 0 %}
+                            <div class="input-group mb-3" style="max-width: 150px;">
+                                <button class="btn btn-outline-secondary" type="button" id="decrement">-</button>
+                                <input type="text" class="form-control text-center" id="quantity" value="1" min="1" max="{{ products.quantity }}">
+                                <button class="btn btn-outline-secondary" type="button" id="increment">+</button>
+                            </div>
+                            <button class="btn btn-primary" id="addToCart">Add to Cart</button>
+                        {% else %}
+                            <button class="btn btn-secondary" disabled>Out of Stock</button>
+                        {% endif %}
+                        <button class="btn btn-danger" id="addToFav">Add to Favourites</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                {% display_banner 'product_sidebar' %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const productData = {
+            id: '{{ products.id }}',
+            quantity: '{{ products.quantity }}',
+            name: "{{ products.name|escapejs }}"
+        };
+
+        function updateQuantity(element, increment) {
+            let qty = parseInt(element.value);
+            if (increment && qty < productData.quantity) {
+                element.value = qty + 1;
+            } else if (!increment && qty > 1) {
+                element.value = qty - 1;
+            }
+        }
+
+        document.getElementById('increment').addEventListener('click', function() {
+            updateQuantity(document.getElementById('quantity'), true);
+        });
+
+        document.getElementById('decrement').addEventListener('click', function() {
+            updateQuantity(document.getElementById('quantity'), false);
+        });
+
+        async function handleRequest(url, data) {
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(result.status || 'Request failed');
+                }
+                
+                alert(result.status);
+                if (result.status.includes('Added to') || result.status.includes('updated')) {
+                    window.location.reload();
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        document.getElementById('addToCart').addEventListener('click', function() {
+            const qty = parseInt(document.getElementById('quantity').value);
+            handleRequest("{% url 'addtocart' %}", {
+                pid: productData.id,
+                product_qty: qty
+            });
+        });
+
+        document.getElementById('addToFav').addEventListener('click', function() {
+            handleRequest("{% url 'fav' %}", {
+                pid: productData.id
+            });
+        });
+    </script>
+{% endblock content %}

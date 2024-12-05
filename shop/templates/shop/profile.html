@@ -1,0 +1,67 @@
+{% extends 'shop/layouts/main.html' %}
+{% block title %}Profile | Vorcas{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <img src="{{ profile.avatar.url }}" alt="Profile Picture" 
+                         class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                    <h4>{{ user.username }}</h4>
+                    <p class="text-muted">{{ user.email }}</p>
+                </div>
+                <div class="card-body">
+                    <h4>Profile Information</h4>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% for field in profile_form %}
+                            <div class="mb-3">
+                                <label class="form-label">{{ field.label }}</label>
+                                {{ field }}
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary w-100">Update Profile</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="mb-0">My Addresses</h4>
+                        <a href="{% url 'add_address' %}" class="btn btn-primary">Add New Address</a>
+                    </div>
+                    
+                    {% for address in addresses %}
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h5>{{ address.name }} 
+                                            {% if address.is_default %}
+                                                <span class="badge bg-success">Default</span>
+                                            {% endif %}
+                                        </h5>
+                                        <p class="mb-0">
+                                            {{ address.address_line1 }}<br>
+                                            {% if address.address_line2 %}{{ address.address_line2 }}<br>{% endif %}
+                                            {{ address.city }}, {{ address.state }} - {{ address.pincode }}<br>
+                                            Phone: {{ address.phone }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="alert alert-info">No addresses added yet.</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

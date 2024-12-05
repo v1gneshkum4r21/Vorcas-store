@@ -1,0 +1,19 @@
+{% if banners %}
+    <div class="banner-container banner-{{ position }}">
+        {% for banner in banners %}
+            <div class="banner-item">
+                <a href="{{ banner.get_link }}">
+                    <img src="{{ banner.image.url }}" alt="{{ banner.title }}" class="img-fluid">
+                    {% if banner.title or banner.subtitle %}
+                        <div class="banner-content">
+                            <h3>{{ banner.title }}</h3>
+                            {% if banner.subtitle %}
+                                <p>{{ banner.subtitle }}</p>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

@@ -1,0 +1,104 @@
+{% extends 'shop/layouts/main.html' %}
+{% block title %}Cart | Vorcas{% endblock title %}
+
+{% block content %}
+    <h4 class="mb-3">Cart Items</h4>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                    <tr>
+                        <td><img src="{{ item.product.product_image.url }}" alt="{{ item.product.name }}" width="75"></td>
+                        <td>{{ item.product.name }}</td>
+                        <td>Rs. {{ item.product.selling_price }}</td>
+                        <td>{{ item.product_qty }}</td>
+                        <td>Rs. {{ item.total_cost }}</td>
+                        <td>
+                            <a href="{% url 'remove_cart' item.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                Remove
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="4" class="text-end"><strong>Total Amount:</strong></td>
+                    <td colspan="2">Rs. {{ total_price }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-end mt-3">
+        {% if cart %}
+            <form id="checkoutForm" method="POST" action="{% url 'checkout' %}">
+                {% csrf_token %}
+                <input type="hidden" id="totalAmount" name="total_amount" value="{{ total_price }}">
+                <button type="submit" class="btn btn-primary" id="checkoutBtn">
+                    {% if user.address_set.exists %}
+                        Proceed to Checkout
+                    {% else %}
+                        Add Delivery Address
+                    {% endif %}
+                </button>
+            </form>
+        {% else %}
+            <p>Your cart is empty.</p>
+            <a href="{% url 'collections' %}" class="btn btn-primary">Continue Shopping</a>
+        {% endif %}
+    </div>
+
+    <script>
+        // Calculate total amount
+        window.onload = function() {
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            let total = 0;
+            const cartItems = document.querySelectorAll('table tbody tr:not(:last-child)');
+            
+            cartItems.forEach(row => {
+                const priceText = row.querySelector('td:nth-child(3)').textContent;
+                const qtyText = row.querySelector('td:nth-child(4)').textContent;
+                
+                const price = parseFloat(priceText.replace('Rs. ', ''));
+                const qty = parseInt(qtyText);
+                
+                if (!isNaN(price) && !isNaN(qty)) {
+                    total += price * qty;
+                }
+            });
+
+            document.getElementById('net').textContent = total.toFixed(2);
+            document.getElementById('totalAmount').value = total.toFixed(2);
+        }
+
+        // Validate cart before checkout
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const cartItems = document.querySelectorAll('table tbody tr:not(:last-child)');
+            
+            if (cartItems.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            const total = parseFloat(document.getElementById('totalAmount').value);
+            if (total <= 0) {
+                alert('Invalid cart total!');
+                return;
+            }
+
+            this.submit();
+        });
+    </script>
+{% endblock content %}

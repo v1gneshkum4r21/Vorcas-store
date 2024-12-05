@@ -1,0 +1,36 @@
+{% extends 'shop/layouts/main.html' %}
+{% block title %}Register | Vorcas{% endblock title %}
+
+{% block content %}
+<div class="container" style="margin-top:70px;min-height:600px;">
+    <div class="row">
+        <div class="col-12">
+            <h4 class="mb-3">New User Registration</h4>
+            <hr style="border-color:#b8bfc2;">
+            {% include 'shop/inc/message.html' %}  <!-- Include messages for feedback -->
+        </div>
+    </div>
+    <section class="py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        {{ form.as_p }}  <!-- Render the form fields in paragraph format -->
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                    <p class="my-2">Already a user? <a href="{% url 'login' %}">Login Now</a> </p>
+                </div>
+                <div class="col-6">
+                    <!-- Display form errors -->
+                    {% for field in form %}
+                        {% if field.errors %}
+                            <p class="text-danger">{{ field.errors|join:", " }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends 'shop/layouts/main.html' %}
+{% block title %}Order Confirmation | Vorcas{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">Order Confirmed!</h4>
+                </div>
+                <div class="card-body">
+                    <h5>Order #{{ order.id }}</h5>
+                    <p>Thank you for your order. We'll process it right away!</p>
+                    
+                    <h6>Order Details:</h6>
+                    <ul class="list-unstyled">
+                        {% for item in items %}
+                        <li>{{ item.product.name }} x {{ item.quantity }} - Rs. {{ item.price }}</li>
+                        {% endfor %}
+                    </ul>
+                    
+                    <div class="mt-3">
+                        <strong>Total Amount:</strong> Rs. {{ order.total_price }}
+                    </div>
+                    
+                    <div class="mt-3">
+                        <strong>Shipping Address:</strong>
+                        <p>{{ order.shipping_address }}</p>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <a href="{% url 'home' %}" class="btn btn-primary">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

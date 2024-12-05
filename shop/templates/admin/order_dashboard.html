@@ -1,0 +1,100 @@
+{% extends "admin/change_list.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="stats-grid mb-4">
+        <div class="stat-box">
+            <h5>Total Sales</h5>
+            <div class="big-number">₹{{ total_sales|floatformat:2 }}</div>
+        </div>
+        <div class="stat-box">
+            <h5>Today's Sales</h5>
+            <div class="big-number">₹{{ today_sales|floatformat:2 }}</div>
+        </div>
+        <div class="stat-box">
+            <h5>Total Orders</h5>
+            <div class="big-number">{{ total_orders }}</div>
+        </div>
+        <div class="stat-box">
+            <h5>Pending Orders</h5>
+            <div class="big-number">{{ pending_orders }}</div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="dashboard-chart">
+                <canvas id="salesChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    {{ block.super }}
+</div>
+
+{% endblock %}
+
+{% block extrajs %}
+{{ block.super }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const chartData = {
+        labels: JSON.parse('{{ daily_stats_json|escapejs }}'),
+        amounts: JSON.parse('{{ daily_amounts_json|escapejs }}'),
+        counts: JSON.parse('{{ daily_counts_json|escapejs }}')
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: chartData.labels,
+                datasets: [{
+                    label: 'Sales Amount (₹)',
+                    data: chartData.amounts,
+                    borderColor: 'rgb(75, 192, 192)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                    yAxisID: 'y',
+                    fill: true
+                }, {
+                    label: 'Number of Orders',
+                    data: chartData.counts,
+                    borderColor: 'rgb(54, 162, 235)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                    yAxisID: 'y1',
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Sales Amount (₹)'
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Number of Orders'
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %} 

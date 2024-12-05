@@ -1,0 +1,257 @@
+[
+    {
+        "model": "shop.product",
+        "pk": 1,
+        "fields": {
+            "category": 1,
+            "name": "Casual T-Shirt",
+            "vendor": "Brand A",
+            "product_image": "images/products/product_1.jpg",
+            "quantity": 50,
+            "original_price": 25.00,
+            "selling_price": 20.00,
+            "description": "Comfortable casual T-shirt for men.",
+            "status": false,
+            "trending": true,
+            "created_at": "2024-11-10T12:00:00Z"
+        }
+    },
+    {
+        "model": "shop.product",
+        "pk": 2,
+        "fields": {
+            "category": 1,
+            "name": "Formal Shirt",
+            "vendor": "Brand B",
+            "product_image": "images/products/product_2.jpg",
+            "quantity": 30,
+            "original_price": 40.00,
+            "selling_price": 35.00,
+            "description": "Stylish formal shirt for office wear.",
+            "status": false,
+            "trending": false,
+            "created_at": "2024-11-10T12:00:00Z"
+        }
+    },
+    {
+        "model": "shop.product",
+        "pk": 3,
+        "fields": {
+            "category": 1,
+            "name": "Men's Hoodie",
+            "vendor": "Brand C",
+            "product_image": "images/products/product_3.jpg",
+            "quantity": 40,
+            "original_price": 55.00,
+            "selling_price": 45.00,
+            "description": "Warm and cozy hoodie for men.",
+            "status": false,
+            "trending": true,
+            "created_at": "2024-11-10T12:00:00Z"
+        }
+    },
+    {
+        "model": "shop.product",
+        "pk": 4,
+        "fields": {
+            "category": 2,
+            "name": "Summer Dress",
+            "vendor": "Brand D",
+            "product_image": "images/products/product_4.jpg",
+            "quantity": 25,
+            "original_price": 70.00,
+            "selling_price": 60.00,
+            "description": "Light and breezy summer dress.",
+            "status": false,
+            "trending": true,
+            "created_at": "2024-11-10T12:00:00Z"
+        }
+    },
+    {
+        "model": "shop.product",
+        "pk": 5,
+        "fields": {
+            "category": 2,
+            "name": "Women's Jacket",
+            "vendor": "Brand E",
+            "product_image": "images/products/product_5.jpg",
+            "quantity": 15,
+            "original_price": 100.00,
+            "selling_price": 85.00,
+            "description": "Stylish winter jacket for women.",
+            "status": false,
+            "trending": false,
+            "created_at": "2024-11-10T12:00:00Z"
+        }
+    },
+    {
+        "model": "shop.product",
+        "pk": 6,
+        "fields": {
+            "category": 2,
+            "name": "Blouse",
+            "vendor": "Brand F",
+            "product_image": "images/products/product_6.jpg",
+            "quantity": 35,
+            "original_price": 45.00,
+            "selling_price": 35.00,
+            "description": "Elegant blouse for women.",
+            "status": false,
+            "trending": false,
+            "created_at": "2024-11-10T12:00:00Z"
+        }
+    },
+    {
+        "model": "shop.product",
+        "pk": 7,
+        "fields": {
+            "category": 3,
+            "name": "Kids' T-shirt",
+            "vendor": "Brand G",
+            "product_image": "images/products/product_7.jpg",
+            "quantity": 60,
+            "original_price": 15.00,
+            "selling_price": 12.00,
+            "description": "Fun T-shirt for kids.",
+            "status": false,
+            "trending": true,
+            "created_at": "2024-11-10T12:00:00Z"
+        }
+    },
+    {
+        "model": "shop.product",
+        "pk": 8,
+        "fields": {
+            "category": 3,
+            "name": "Kids' Hoodie",
+            "vendor": "Brand H",
+            "product_image": "images/products/product_8.jpg",
+            "quantity": 40,
+            "original_price": 30.00,
+            "selling_price": 25.00,
+            "description": "Warm hoodie for kids.",
+            "status": false,
+            "trending": true,
+            "created_at": "2024-11-10T12:00:00Z"
+        }
+    },
+    {
+        "model": "shop.product",
+        "pk": 9,
+        "fields": {
+            "category": 1,
+            "name": "Denim Jeans",
+            "vendor": "Brand I",
+            "product_image": "images/products/product_9.jpg",
+            "quantity": 20,
+            "original_price": 65.00,
+            "selling_price": 55.00,
+            "description": "Comfortable denim jeans for men.",
+            "status": false,
+            "trending": false,
+            "created_at": "2024-11-10T12:00:00Z"
+        }
+    },
+    {
+        "model": "shop.product",
+        "pk": 10,
+        "fields": {
+            "category": 2,
+            "name": "Sweater",
+            "vendor": "Brand J",
+            "product_image": "images/products/product_10.jpg",
+            "quantity": 30,
+            "original_price": 50.00,
+            "selling_price": 40.00,
+            "description": "Cozy winter sweater for women.",
+            "status": false,
+            "trending": true,
+            "created_at": "2024-11-10T12:00:00Z"
+        }
+    },
+    {
+        "model": "shop.product",
+        "pk": 11,
+        "fields": {
+            "category": 1,
+            "name": "Men's Shorts",
+            "vendor": "Brand K",
+            "product_image": "images/products/product_11.jpg",
+            "quantity": 45,
+            "original_price": 30.00,
+            "selling_price": 25.00,
+            "description": "Casual shorts for men.",
+            "status": false,
+            "trending": false,
+            "created_at": "2024-11-10T12:00:00Z"
+        }
+    },
+    {
+        "model": "shop.product",
+        "pk": 12,
+        "fields": {
+            "category": 2,
+            "name": "Skirt",
+            "vendor": "Brand L",
+            "product_image": "images/products/product_12.jpg",
+            "quantity": 25,
+            "original_price": 40.00,
+            "selling_price": 35.00,
+            "description": "Stylish skirt for women.",
+            "status": false,
+            "trending": false,
+            "created_at": "2024-11-10T12:00:00Z"
+        }
+    },
+    {
+        "model": "shop.product",
+        "pk": 13,
+        "fields": {
+            "category": 3,
+            "name": "Kids' Pants",
+            "vendor": "Brand M",
+            "product_image": "images/products/product_13.jpg",
+            "quantity": 35,
+            "original_price": 20.00,
+            "selling_price": 18.00,
+            "description": "Comfortable pants for kids.",
+            "status": false,
+            "trending": true,
+            "created_at": "2024-11-10T12:00:00Z"
+        }
+    },
+    {
+        "model": "shop.product",
+        "pk": 14,
+        "fields": {
+            "category": 3,
+            "name": "Kids' Jacket",
+            "vendor": "Brand N",
+            "product_image": "images/products/product_14.jpg",
+            "quantity": 25,
+            "original_price": 35.00,
+            "selling_price": 30.00,
+            "description": "Warm jacket for kids.",
+            "status": false,
+            "trending": false,
+            "created_at": "2024-11-10T12:00:00Z"
+        }
+    },
+    {
+        "model": "shop.product",
+        "pk": 15,
+        "fields": {
+            "category": 2,
+            "name": "Women's Trousers",
+            "vendor": "Brand O",
+            "product_image": "images/products/product_15.jpg",
+            "quantity": 30,
+            "original_price": 55.00,
+            "selling_price": 45.00,
+            "description": "Comfortable trousers for women.",
+            "status": false,
+            "trending": true,
+            "created_at": "2024-11-10T12:00:00Z"
+        }
+    }
+]

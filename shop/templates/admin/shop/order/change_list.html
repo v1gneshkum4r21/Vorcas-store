@@ -1,0 +1,30 @@
+{% extends "admin/change_list.html" %}
+{% load static %}
+
+{% block content %}
+    {{ block.super }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusCells = document.querySelectorAll('td.field-status');
+            statusCells.forEach(cell => {
+                const currentStatus = cell.textContent.trim();
+                const orderId = cell.parentElement.querySelector('input[name="form-0-id"]').value;
+                
+                const buttonsHtml = `
+                    <div class="status-buttons">
+                        <button class="status-button pending" onclick="updateStatus('${orderId}', 'Pending')">Pending</button>
+                        <button class="status-button processing" onclick="updateStatus('${orderId}', 'Processing')">Processing</button>
+                        <button class="status-button shipped" onclick="updateStatus('${orderId}', 'Shipped')">Shipped</button>
+                        <button class="status-button delivered" onclick="updateStatus('${orderId}', 'Delivered')">Delivered</button>
+                        <button class="status-button cancelled" onclick="updateStatus('${orderId}', 'Cancelled')">Cancelled</button>
+                    </div>
+                `;
+                cell.innerHTML += buttonsHtml;
+            });
+        });
+
+        function updateStatus(orderId, status) {
+            window.location.href = `order/${orderId}/update_status/${status}/`;
+        }
+    </script>
+{% endblock %} 

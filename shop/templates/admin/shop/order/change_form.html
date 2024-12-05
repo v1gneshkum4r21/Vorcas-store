@@ -1,0 +1,51 @@
+{% extends "admin/change_form.html" %}
+{% load static %}
+
+{% block content %}
+<div class="order-detail-container">
+    <div class="order-header">
+        <div class="qr-section">
+            {% if original.qr_code %}
+                <img src="{{ original.qr_code.url }}" alt="Order QR Code">
+            {% endif %}
+            <div class="order-ids">
+                <p><strong>Order #:</strong> {{ original.tracking_no }}</p>
+                <p><strong>Invoice #:</strong> {{ original.invoice_number }}</p>
+            </div>
+        </div>
+        
+        <div class="customer-info">
+            <h3>Customer Details</h3>
+            <p><strong>Name:</strong> {{ original.user.get_full_name }}</p>
+            <p><strong>Email:</strong> {{ original.user.email }}</p>
+            <p><strong>Phone:</strong> {{ original.phone }}</p>
+        </div>
+    </div>
+
+    <div class="order-items">
+        <h3>Order Items</h3>
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in original.orderitem_set.all %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>₹{{ item.price }}</td>
+                    <td>₹{{ item.get_total }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{{ block.super }}
+{% endblock %} 
