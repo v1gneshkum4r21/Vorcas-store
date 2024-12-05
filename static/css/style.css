@@ -1,0 +1,238 @@
+/* Example style.css */
+body {
+    font-family: 'Noto Sans', sans-serif;
+}
+a {
+    text-decoration: none;
+}
+.carousel-item img {
+    object-fit: cover;
+    height: 60vh;
+}
+.old_price {
+    color: red;
+}
+.new_price {
+    color: green;
+    font-weight: bold;
+}
+.banner-container {
+    position: relative;
+    overflow: hidden;
+}
+.banner-item {
+    position: relative;
+    transition: transform 0.3s ease;
+}
+.banner-item:hover {
+    transform: scale(1.02);
+}
+.banner-main_hero img {
+    width: 100%;
+    height: 800px;
+    object-fit: cover;
+}
+.banner-category_header img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+.banner-product_sidebar img {
+    width: 300px;
+    height: 600px;
+    object-fit: cover;
+}
+.banner-home_featured img {
+    width: 800px;
+    height: 400px;
+    object-fit: cover;
+}
+.banner-collection_banner img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+.banner-promo_strip img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.banner-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    color: white;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+.banner-content h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.banner-content p {
+    font-size: 16px;
+    margin-bottom: 0;
+}
+.banner-home_top {
+    margin-top: 0;
+}
+.banner-product_sidebar .banner-item img {
+    border-radius: 4px;
+}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.carousel-caption h5 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.carousel-caption p {
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+.carousel-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.carousel-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.carousel-item {
+    position: relative;
+}
+
+.carousel-caption {
+    pointer-events: none;
+}
+
+/* Banner Base Styles */
+.banner-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.banner-item {
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.banner-item:hover {
+    transform: scale(1.02);
+}
+
+/* Responsive Banner Sizes */
+@media (min-width: 1200px) {
+    .banner-main_hero img {
+        height: 800px;
+    }
+    .banner-category_header img {
+        height: 400px;
+    }
+    .banner-product_sidebar img {
+        height: 600px;
+    }
+    .banner-home_featured img {
+        height: 400px;
+    }
+    .banner-collection_banner img {
+        height: 300px;
+    }
+    .banner-promo_strip img {
+        height: 200px;
+    }
+}
+
+@media (max-width: 1199px) {
+    .banner-main_hero img {
+        height: 600px;
+    }
+    .banner-category_header img {
+        height: 300px;
+    }
+    .banner-product_sidebar img {
+        height: 400px;
+    }
+    .banner-home_featured img {
+        height: 300px;
+    }
+    .banner-collection_banner img {
+        height: 250px;
+    }
+    .banner-promo_strip img {
+        height: 150px;
+    }
+}
+
+@media (max-width: 768px) {
+    .banner-main_hero img {
+        height: 400px;
+    }
+    .banner-category_header img {
+        height: 200px;
+    }
+    .banner-product_sidebar img {
+        height: 300px;
+    }
+    .banner-home_featured img {
+        height: 200px;
+    }
+    .banner-collection_banner img {
+        height: 200px;
+    }
+    .banner-promo_strip img {
+        height: 100px;
+    }
+}
+
+/* Responsive Banner Heights */
+.banner-main_hero {
+    height: calc(100vh - 80px);
+    min-height: 400px;
+}
+
+@media (max-width: 768px) {
+    .banner-main_hero {
+        height: 50vh;
+        min-height: 300px;
+    }
+    
+    .banner-content h3 {
+        font-size: 1.2rem;
+    }
+    
+    .banner-content p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Slider Animation */
+.carousel-item {
+    transition: transform 0.6s ease-in-out;
+}
+
+/* Banner Loading State */
+.banner-container.loading {
+    min-height: 200px;
+    background: #f0f0f0;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0.6; }
+}
