@@ -1,0 +1,12 @@
+Django
+Pillow
+django-jazzmin
+django-crispy-forms
+django-environ
+django-compressor
+django-cleanup
+django-widget-tweaks
+django-storages
+python-slugify
+qrcode
+requests
